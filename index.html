@@ -14,7 +14,7 @@
     height: 90vh;
     min-height: 500px;
     max-height: 900px;
-    background: #f5f0eb;
+    background: #000000;
     overflow: hidden;
     font-family: 'Playfair Display', Georgia, serif;
   }
@@ -26,7 +26,7 @@
     transform: translate(-50%, -50%);
     font-size: 56px;
     font-weight: 700;
-    color: #c9b8a8;
+    color: #ffffff;
     opacity: 0.4;
     text-align: center;
     white-space: nowrap;
@@ -47,9 +47,6 @@
 
   .ss-photo {
     position: absolute;
-    background: #fff;
-    padding: 4px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13), 0 1px 6px rgba(0,0,0,0.08);
     overflow: hidden;
   }
 
@@ -118,15 +115,16 @@
   // x = horizontal position in vw, top = vertical position in %,
   // w = width in %, aspect = 'landscape' or 'portrait' (controls height)
   // Values extracted from daniellelevitt.com source HTML.
+  // row: 'top' or 'bottom' — used to add vertical gap between rows
   var LAYOUT = [
-    { x: 0,      top: -4.42,  w: 19.00, aspect: 'portrait'  },
-    { x: 25.86,  top: 53.07,  w: 23.36, aspect: 'landscape' },
-    { x: 30.31,  top: 14.44,  w: 26.56, aspect: 'landscape' },
-    { x: 57.11,  top: 50.53,  w: 25.07, aspect: 'landscape' },
-    { x: 61.56,  top: 3.40,   w: 16.92, aspect: 'portrait'  },
-    { x: 88.36,  top: 48.47,  w: 18.72, aspect: 'portrait'  },
-    { x: 92.81,  top: 4.86,   w: 18.23, aspect: 'portrait'  },
-    { x: -5.39,  top: 59.49,  w: 16.21, aspect: 'portrait'  }
+    { x: 0,      top: -4.42,  w: 19.00, aspect: 'portrait',  row: 'top'    },
+    { x: 25.86,  top: 53.07,  w: 23.36, aspect: 'landscape', row: 'bottom' },
+    { x: 30.31,  top: 14.44,  w: 26.56, aspect: 'landscape', row: 'top'    },
+    { x: 57.11,  top: 50.53,  w: 25.07, aspect: 'landscape', row: 'bottom' },
+    { x: 61.56,  top: 3.40,   w: 16.92, aspect: 'portrait',  row: 'top'    },
+    { x: 88.36,  top: 48.47,  w: 18.72, aspect: 'portrait',  row: 'bottom' },
+    { x: 92.81,  top: 4.86,   w: 18.23, aspect: 'portrait',  row: 'top'    },
+    { x: -5.39,  top: 59.49,  w: 16.21, aspect: 'portrait',  row: 'bottom' }
   ];
 
   // =============================================
@@ -166,8 +164,9 @@
 
       var div = document.createElement('div');
       div.className = 'ss-photo';
+      var topOffset = slot.row === 'top' ? '- 40px' : '+ 40px';
       div.style.left = '0';
-      div.style.top = slot.top + '%';
+      div.style.top = 'calc(' + slot.top + '% ' + topOffset + ')';
       div.style.width = slot.w + 'vw';
 
       // Set height based on aspect ratio
