@@ -1,0 +1,310 @@
+<!-- Scattered Editorial Photo Slideshow — Squarespace Code Block -->
+<!-- Paste this entire snippet into a Squarespace Code Block (HTML mode) -->
+<div class="ss-root">
+  <div class="ss-bg-text" id="ssBgText"></div>
+  <div class="ss-canvas" id="ssCanvas"></div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+  .ss-root {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 500px;
+    max-height: 900px;
+    background: #f5f0eb;
+    overflow: hidden;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .ss-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 56px;
+    font-weight: 700;
+    color: #c9b8a8;
+    opacity: 0.45;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+  }
+
+  .ss-bg-text.ss-shift {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+
+  .ss-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .ss-photo {
+    position: absolute;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13), 0 1px 6px rgba(0,0,0,0.08);
+    opacity: 0;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+    overflow: hidden;
+  }
+
+  .ss-photo.ss-visible {
+    opacity: 1;
+  }
+
+  .ss-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ss-root {
+      height: 70vh;
+      min-height: 400px;
+    }
+    .ss-bg-text {
+      font-size: 32px;
+      white-space: normal;
+      width: 80%;
+      line-height: 1.2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ss-root {
+      height: 60vh;
+      min-height: 350px;
+    }
+    .ss-bg-text {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  // =============================================
+  // CUSTOMIZATION — Edit these variables
+  // =============================================
+
+  // Photo URLs — swap these with your Squarespace image URLs
+  var PHOTOS = [
+    'https://picsum.photos/seed/ed01/600/800',
+    'https://picsum.photos/seed/ed02/800/600',
+    'https://picsum.photos/seed/ed03/500/700',
+    'https://picsum.photos/seed/ed04/700/500',
+    'https://picsum.photos/seed/ed05/600/900',
+    'https://picsum.photos/seed/ed06/800/800',
+    'https://picsum.photos/seed/ed07/700/900',
+    'https://picsum.photos/seed/ed08/900/600',
+    'https://picsum.photos/seed/ed09/600/600',
+    'https://picsum.photos/seed/ed10/800/700',
+    'https://picsum.photos/seed/ed11/500/800',
+    'https://picsum.photos/seed/ed12/700/700',
+    'https://picsum.photos/seed/ed13/900/700',
+    'https://picsum.photos/seed/ed14/600/500',
+    'https://picsum.photos/seed/ed15/800/900',
+    'https://picsum.photos/seed/ed16/700/600',
+    'https://picsum.photos/seed/ed17/500/500',
+    'https://picsum.photos/seed/ed18/900/800'
+  ];
+
+  // Background text
+  var BG_TEXT = 'E-commerce\u00A0 &\u00A0 Product';
+
+  // Autoplay interval in milliseconds
+  var INTERVAL_MS = 3500;
+
+  // =============================================
+  // END CUSTOMIZATION
+  // =============================================
+
+  // Layout templates: each is an array of photo placement objects
+  // Positions use percentages. "dominant" marks the hero photo.
+  var LAYOUTS = [
+    // Layout 1
+    [
+      { left: 5, top: 8, w: 38, h: 55, rot: -3, z: 5, dominant: true },
+      { left: 48, top: 5, w: 22, h: 30, rot: 4, z: 4 },
+      { left: 72, top: 12, w: 24, h: 38, rot: -2, z: 3 },
+      { left: 30, top: 58, w: 20, h: 28, rot: 5, z: 6 },
+      { left: 60, top: 50, w: 28, h: 40, rot: -4, z: 2 }
+    ],
+    // Layout 2
+    [
+      { left: 50, top: 5, w: 35, h: 52, rot: 3, z: 5, dominant: true },
+      { left: 5, top: 10, w: 25, h: 35, rot: -5, z: 4 },
+      { left: 10, top: 55, w: 22, h: 32, rot: 2, z: 3 },
+      { left: 38, top: 60, w: 18, h: 25, rot: -3, z: 6 },
+      { left: 75, top: 55, w: 20, h: 30, rot: 4, z: 2 },
+      { left: 30, top: 15, w: 16, h: 22, rot: -1, z: 1 }
+    ],
+    // Layout 3
+    [
+      { left: 25, top: 15, w: 40, h: 58, rot: -2, z: 5, dominant: true },
+      { left: 2, top: 5, w: 20, h: 30, rot: 5, z: 3 },
+      { left: 70, top: 8, w: 26, h: 36, rot: -4, z: 4 },
+      { left: 5, top: 60, w: 24, h: 32, rot: 3, z: 2 },
+      { left: 68, top: 55, w: 22, h: 30, rot: -5, z: 6 }
+    ],
+    // Layout 4
+    [
+      { left: 55, top: 10, w: 38, h: 50, rot: 2, z: 5, dominant: true },
+      { left: 3, top: 5, w: 28, h: 40, rot: -4, z: 4 },
+      { left: 35, top: 3, w: 18, h: 25, rot: 6, z: 3 },
+      { left: 8, top: 55, w: 25, h: 35, rot: -2, z: 2 },
+      { left: 42, top: 60, w: 20, h: 28, rot: 3, z: 6 },
+      { left: 72, top: 62, w: 18, h: 24, rot: -5, z: 1 }
+    ],
+    // Layout 5
+    [
+      { left: 10, top: 20, w: 35, h: 50, rot: 4, z: 5, dominant: true },
+      { left: 50, top: 5, w: 20, h: 28, rot: -3, z: 4 },
+      { left: 72, top: 20, w: 25, h: 38, rot: 2, z: 3 },
+      { left: 48, top: 55, w: 30, h: 38, rot: -5, z: 6 },
+      { left: 2, top: 2, w: 16, h: 22, rot: -1, z: 2 }
+    ],
+    // Layout 6
+    [
+      { left: 30, top: 5, w: 36, h: 55, rot: -1, z: 5, dominant: true },
+      { left: 2, top: 15, w: 24, h: 34, rot: 4, z: 4 },
+      { left: 70, top: 10, w: 22, h: 32, rot: -5, z: 3 },
+      { left: 8, top: 60, w: 20, h: 28, rot: 3, z: 2 },
+      { left: 55, top: 62, w: 26, h: 32, rot: -3, z: 6 },
+      { left: 78, top: 55, w: 16, h: 22, rot: 6, z: 1 }
+    ]
+  ];
+
+  var bgTextEl = document.getElementById('ssBgText');
+  var canvasEl = document.getElementById('ssCanvas');
+  var currentLayout = -1;
+  var photoPool = PHOTOS.slice();
+  var poolIndex = 0;
+
+  // Set background text
+  bgTextEl.textContent = BG_TEXT;
+
+  // Shuffle helper
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  // Get next N photos from the shuffled pool, reshuffling when exhausted
+  function getPhotos(count) {
+    var result = [];
+    for (var i = 0; i < count; i++) {
+      if (poolIndex >= photoPool.length) {
+        shuffle(photoPool);
+        poolIndex = 0;
+      }
+      result.push(photoPool[poolIndex++]);
+      }
+    return result;
+  }
+
+  // Pick a layout different from the current one
+  function pickLayout() {
+    var idx;
+    do {
+      idx = Math.floor(Math.random() * LAYOUTS.length);
+    } while (idx === currentLayout && LAYOUTS.length > 1);
+    currentLayout = idx;
+    return LAYOUTS[idx];
+  }
+
+  // Small random jitter for organic feel
+  function jitter(val, range) {
+    return val + (Math.random() - 0.5) * range;
+  }
+
+  // Render a slide
+  function renderSlide() {
+    var layout = pickLayout();
+    var photos = getPhotos(layout.length);
+
+    // Toggle background text shift
+    bgTextEl.classList.toggle('ss-shift');
+
+    // Fade out existing photos
+    var existing = canvasEl.querySelectorAll('.ss-photo');
+    for (var i = 0; i < existing.length; i++) {
+      existing[i].classList.remove('ss-visible');
+    }
+
+    // After fade-out, replace with new photos
+    setTimeout(function () {
+      canvasEl.innerHTML = '';
+
+      for (var i = 0; i < layout.length; i++) {
+        var slot = layout[i];
+        var photoUrl = photos[i];
+
+        var div = document.createElement('div');
+        div.className = 'ss-photo';
+
+        // Add slight jitter for organic randomness
+        var l = jitter(slot.left, 3);
+        var t = jitter(slot.top, 3);
+        var r = jitter(slot.rot, 2);
+
+        div.style.left = l + '%';
+        div.style.top = t + '%';
+        div.style.width = slot.w + '%';
+        div.style.height = slot.h + '%';
+        div.style.zIndex = slot.z;
+
+        // Start slightly offset for drift-in effect
+        var driftX = (Math.random() - 0.5) * 30;
+        var driftY = (Math.random() - 0.5) * 20;
+        div.style.transform = 'rotate(' + r + 'deg) translate(' + driftX + 'px, ' + driftY + 'px)';
+
+        var img = document.createElement('img');
+        img.src = photoUrl;
+        img.alt = '';
+        img.loading = 'eager';
+        div.appendChild(img);
+
+        canvasEl.appendChild(div);
+
+        // Trigger fade-in + drift to final position with staggered timing
+        (function (el, rotation) {
+          var delay = 50 + Math.random() * 300;
+          setTimeout(function () {
+            el.style.transform = 'rotate(' + rotation + 'deg) translate(0, 0)';
+            el.classList.add('ss-visible');
+          }, delay);
+        })(div, r);
+      }
+    }, 500); // Wait for fade-out
+  }
+
+  // Shuffle pool initially
+  shuffle(photoPool);
+
+  // Initial render
+  renderSlide();
+
+  // Autoplay
+  setInterval(renderSlide, INTERVAL_MS);
+})();
+</script>
