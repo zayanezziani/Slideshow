@@ -4,7 +4,7 @@
 <!-- ============================================= -->
 <!-- CUSTOMIZATION: Swap image URLs in src below   -->
 <!-- TOP_IMAGE  = top strip (scrolls left)         -->
-<!-- BOTTOM_IMAGE = bottom strip (scrolls right)   -->
+<!-- BOTTOM_IMAGE = bottom strip (scrolls left)     -->
 <!-- ============================================= -->
 
 <div class="ss-root">
@@ -18,9 +18,9 @@
     </ul>
   </div>
 
-  <!-- Bottom ticker — scrolls right -->
+  <!-- Bottom ticker — scrolls left (slower) -->
   <div class="ss-ticker ss-ticker-bottom">
-    <ul class="ss-ticker-track ss-ticker-right">
+    <ul class="ss-ticker-track ss-ticker-left">
       <!-- BOTTOM_IMAGE — replace both src values with the same URL -->
       <li><img src="https://framerusercontent.com/images/iB9kc1p4KO0KI5vGLJGTGPjy4U.png" alt=""></li>
       <li><img src="https://framerusercontent.com/images/iB9kc1p4KO0KI5vGLJGTGPjy4U.png" alt=""></li>
@@ -31,12 +31,13 @@
 <style>
   /* =============================================
      CUSTOMIZATION — Edit these values
-     --ss-scroll-duration : speed of one full loop
+     --ss-scroll-duration-top/bottom : speed per strip
      --ss-ticker-gap      : space between copies
      ============================================= */
 
   .ss-root {
-    --ss-scroll-duration: 35s;
+    --ss-scroll-duration-top: 50s;
+    --ss-scroll-duration-bottom: 70s;
     --ss-ticker-gap: 248px;
 
     position: relative;
@@ -88,14 +89,14 @@
     width: auto;
   }
 
-  /* Left-scrolling animation (top strip) */
-  .ss-ticker-left {
-    animation: ss-scroll-left var(--ss-scroll-duration) linear infinite;
+  /* Left-scrolling animation — top (faster) */
+  .ss-ticker-top .ss-ticker-left {
+    animation: ss-scroll-left var(--ss-scroll-duration-top) linear infinite;
   }
 
-  /* Right-scrolling animation (bottom strip) */
-  .ss-ticker-right {
-    animation: ss-scroll-right var(--ss-scroll-duration) linear infinite;
+  /* Left-scrolling animation — bottom (slower) */
+  .ss-ticker-bottom .ss-ticker-left {
+    animation: ss-scroll-left var(--ss-scroll-duration-bottom) linear infinite;
   }
 
   @keyframes ss-scroll-left {
@@ -104,15 +105,6 @@
     }
     to {
       transform: translateX(calc(-50% - var(--ss-ticker-gap) / 2));
-    }
-  }
-
-  @keyframes ss-scroll-right {
-    from {
-      transform: translateX(calc(-50% - var(--ss-ticker-gap) / 2));
-    }
-    to {
-      transform: translateX(0);
     }
   }
 
