@@ -1,24 +1,56 @@
-<!-- Horizontal Auto-Scrolling Photo Collage — Squarespace Code Block -->
+<!-- Dual Ticker Strips — Squarespace Code Block -->
 <!-- Paste this entire snippet into a Squarespace Code Block (HTML mode) -->
+
+<!-- ============================================= -->
+<!-- CUSTOMIZATION: Swap image URLs in src below   -->
+<!-- TOP_IMAGE  = top strip (scrolls left)         -->
+<!-- BOTTOM_IMAGE = bottom strip (scrolls right)   -->
+<!-- ============================================= -->
+
 <div class="ss-root">
-  <div class="ss-bg-text" id="ssBgText"></div>
-  <div class="ss-track" id="ssTrack"></div>
+  <div class="ss-bg-text">E-commerce<br>& Product</div>
+
+  <!-- Top ticker — scrolls left -->
+  <div class="ss-ticker ss-ticker-top">
+    <ul class="ss-ticker-track ss-ticker-left">
+      <!-- TOP_IMAGE — replace both src values with the same URL -->
+      <li><img src="https://framerusercontent.com/images/O2YNsM4ov4pfI3ZTHZt80R69RA.png" alt=""></li>
+      <li><img src="https://framerusercontent.com/images/O2YNsM4ov4pfI3ZTHZt80R69RA.png" alt=""></li>
+    </ul>
+  </div>
+
+  <!-- Bottom ticker — scrolls right -->
+  <div class="ss-ticker ss-ticker-bottom">
+    <ul class="ss-ticker-track ss-ticker-right">
+      <!-- BOTTOM_IMAGE — replace both src values with the same URL -->
+      <li><img src="https://framerusercontent.com/images/iB9kc1p4KO0KI5vGLJGTGPjy4U.png" alt=""></li>
+      <li><img src="https://framerusercontent.com/images/iB9kc1p4KO0KI5vGLJGTGPjy4U.png" alt=""></li>
+    </ul>
+  </div>
 </div>
 
 <style>
+  /* =============================================
+     CUSTOMIZATION — Edit these values
+     --ss-scroll-duration : speed of one full loop
+     --ss-ticker-gap      : space between copies
+     ============================================= */
+
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
   .ss-root {
+    --ss-scroll-duration: 35s;
+    --ss-ticker-gap: 248px;
+
     position: relative;
     width: 100%;
-    height: 90vh;
-    min-height: 500px;
-    max-height: 900px;
+    height: 100vh;
     background: #000000;
     overflow: hidden;
     font-family: 'Playfair Display', Georgia, serif;
   }
 
+  /* Background text — visible between the two strips */
   .ss-bg-text {
     position: absolute;
     top: 50%;
@@ -27,7 +59,7 @@
     font-size: 56px;
     font-weight: 700;
     color: #ffffff;
-    opacity: 0.4;
+    opacity: 0.9;
     text-align: center;
     white-space: nowrap;
     pointer-events: none;
@@ -36,175 +68,103 @@
     line-height: 1.15;
   }
 
-  .ss-track {
+  /* Ticker containers */
+  .ss-ticker {
     position: absolute;
-    top: 0;
     left: 0;
-    height: 100%;
+    width: 100%;
+    overflow: hidden;
     z-index: 2;
+  }
+
+  .ss-ticker-top {
+    top: 0;
+    height: 48%;
+  }
+
+  .ss-ticker-bottom {
+    bottom: 0;
+    height: 42%;
+  }
+
+  /* Ticker track — the scrolling <ul> */
+  .ss-ticker-track {
+    display: flex;
+    gap: var(--ss-ticker-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: max-content;
     will-change: transform;
   }
 
-  .ss-photo {
-    position: absolute;
-    overflow: hidden;
-  }
-
-  .ss-photo img {
-    display: block;
-    width: 100%;
+  .ss-ticker-track li {
+    flex-shrink: 0;
     height: 100%;
-    object-fit: cover;
   }
 
-  .ss-root:hover .ss-track {
-    animation-play-state: paused !important;
+  .ss-ticker-track li img {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  /* Left-scrolling animation (top strip) */
+  .ss-ticker-left {
+    animation: ss-scroll-left var(--ss-scroll-duration) linear infinite;
+  }
+
+  /* Right-scrolling animation (bottom strip) */
+  .ss-ticker-right {
+    animation: ss-scroll-right var(--ss-scroll-duration) linear infinite;
+  }
+
+  @keyframes ss-scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - var(--ss-ticker-gap) / 2));
+    }
+  }
+
+  @keyframes ss-scroll-right {
+    from {
+      transform: translateX(calc(-50% - var(--ss-ticker-gap) / 2));
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* Pause on hover */
+  .ss-root:hover .ss-ticker-track {
+    animation-play-state: paused;
   }
 
   /* Responsive */
   @media (max-width: 768px) {
     .ss-root {
       height: 70vh;
-      min-height: 400px;
     }
     .ss-bg-text {
-      font-size: 32px;
-      white-space: normal;
-      width: 80%;
-      line-height: 1.2;
+      font-size: 36px;
+    }
+    .ss-ticker-top {
+      height: 45%;
+    }
+    .ss-ticker-bottom {
+      height: 40%;
     }
   }
 
   @media (max-width: 480px) {
     .ss-root {
-      height: 60vh;
-      min-height: 350px;
+      height: 50vh;
     }
     .ss-bg-text {
       font-size: 24px;
     }
   }
 </style>
-
-<script>
-(function () {
-  // =============================================
-  // CUSTOMIZATION — Edit these variables
-  // =============================================
-
-  // Photo URLs — swap these with your Squarespace image URLs.
-  // You need at least as many photos as LAYOUT slots (8).
-  var PHOTOS = [
-    'https://picsum.photos/seed/dl01/600/400',
-    'https://picsum.photos/seed/dl02/400/600',
-    'https://picsum.photos/seed/dl03/500/600',
-    'https://picsum.photos/seed/dl04/600/400',
-    'https://picsum.photos/seed/dl05/400/600',
-    'https://picsum.photos/seed/dl06/600/400',
-    'https://picsum.photos/seed/dl07/400/600',
-    'https://picsum.photos/seed/dl08/400/600'
-  ];
-
-  // Background text (centered behind the photos)
-  var BG_TEXT = 'E-commerce\u00A0 &\u00A0 Product';
-
-  // Scroll speed — seconds for one full loop cycle
-  var SCROLL_DURATION_S = 30;
-
-  // Layout: each entry positions one photo on the wide canvas.
-  // x = horizontal position in vw, top = vertical position in %,
-  // w = width in %, aspect = 'landscape' or 'portrait' (controls height)
-  // Values extracted from daniellelevitt.com source HTML.
-  // row: 'top' or 'bottom' — used to add vertical gap between rows
-  var LAYOUT = [
-    { x: 0,      top: -4.42,  w: 19.00, aspect: 'portrait',  row: 'top'    },
-    { x: 25.86,  top: 53.07,  w: 23.36, aspect: 'landscape', row: 'bottom' },
-    { x: 30.31,  top: 14.44,  w: 26.56, aspect: 'landscape', row: 'top'    },
-    { x: 57.11,  top: 50.53,  w: 25.07, aspect: 'landscape', row: 'bottom' },
-    { x: 61.56,  top: 3.40,   w: 16.92, aspect: 'portrait',  row: 'top'    },
-    { x: 88.36,  top: 48.47,  w: 18.72, aspect: 'portrait',  row: 'bottom' },
-    { x: 92.81,  top: 4.86,   w: 18.23, aspect: 'portrait',  row: 'top'    },
-    { x: -5.39,  top: 59.49,  w: 16.21, aspect: 'portrait',  row: 'bottom' }
-  ];
-
-  // =============================================
-  // END CUSTOMIZATION
-  // =============================================
-
-  // Normalize X positions so the leftmost photo starts at 0
-  var minX = Infinity;
-  for (var i = 0; i < LAYOUT.length; i++) {
-    if (LAYOUT[i].x < minX) minX = LAYOUT[i].x;
-  }
-
-  // Calculate canvas width: find the rightmost edge (x + w converted to vw)
-  var maxRight = 0;
-  for (var i = 0; i < LAYOUT.length; i++) {
-    var normalizedX = LAYOUT[i].x - minX;
-    // Width is in % of viewport, which equals vw
-    var rightEdge = normalizedX + LAYOUT[i].w;
-    if (rightEdge > maxRight) maxRight = rightEdge;
-  }
-
-  // Add a small gap so the loop doesn't feel cramped
-  var CANVAS_WIDTH_VW = Math.ceil(maxRight) + 5;
-
-  var bgTextEl = document.getElementById('ssBgText');
-  var trackEl = document.getElementById('ssTrack');
-
-  // Set background text
-  bgTextEl.textContent = BG_TEXT;
-
-  // Create a single set of photos at a given X offset (in vw)
-  function createPhotoSet(offsetVw) {
-    for (var i = 0; i < LAYOUT.length; i++) {
-      var slot = LAYOUT[i];
-      var photoUrl = PHOTOS[i % PHOTOS.length];
-      var normalizedX = slot.x - minX + offsetVw;
-
-      var div = document.createElement('div');
-      div.className = 'ss-photo';
-      var topOffset = slot.row === 'top' ? '- 40px' : '+ 40px';
-      div.style.left = '0';
-      div.style.top = 'calc(' + slot.top + '% ' + topOffset + ')';
-      div.style.width = slot.w + 'vw';
-
-      // Set height based on aspect ratio
-      if (slot.aspect === 'landscape') {
-        div.style.height = (slot.w * 0.667) + 'vw'; // ~2:3 ratio
-      } else {
-        div.style.height = (slot.w * 1.5) + 'vw'; // ~3:2 ratio
-      }
-
-      div.style.transform = 'translate3d(' + normalizedX + 'vw, 0, 0)';
-
-      var img = document.createElement('img');
-      img.src = photoUrl;
-      img.alt = '';
-      img.loading = (offsetVw === 0) ? 'eager' : 'lazy';
-      div.appendChild(img);
-
-      trackEl.appendChild(div);
-    }
-  }
-
-  // Create the original set and one duplicate for seamless looping
-  createPhotoSet(0);
-  createPhotoSet(CANVAS_WIDTH_VW);
-
-  // Set the track width to hold both sets
-  trackEl.style.width = (CANVAS_WIDTH_VW * 2) + 'vw';
-
-  // Inject keyframes dynamically (needs computed canvas width)
-  var styleEl = document.createElement('style');
-  styleEl.textContent =
-    '@keyframes ss-scroll {' +
-      'from { transform: translate3d(0, 0, 0); }' +
-      'to { transform: translate3d(-' + CANVAS_WIDTH_VW + 'vw, 0, 0); }' +
-    '}';
-  document.head.appendChild(styleEl);
-
-  // Apply the animation
-  trackEl.style.animation = 'ss-scroll ' + SCROLL_DURATION_S + 's linear infinite';
-})();
-</script>
