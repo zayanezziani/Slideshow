@@ -8,7 +8,6 @@
 <!-- ============================================= -->
 
 <div class="ss-root">
-  <div class="ss-bg-text">E-commerce<br>& Product</div>
 
   <!-- Top ticker — scrolls left -->
   <div class="ss-ticker ss-ticker-top">
@@ -36,8 +35,6 @@
      --ss-ticker-gap      : space between copies
      ============================================= */
 
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-
   .ss-root {
     --ss-scroll-duration: 35s;
     --ss-ticker-gap: 248px;
@@ -47,25 +44,6 @@
     height: 100vh;
     background: #000000;
     overflow: hidden;
-    font-family: 'Playfair Display', Georgia, serif;
-  }
-
-  /* Background text — visible between the two strips */
-  .ss-bg-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 56px;
-    font-weight: 700;
-    color: #ffffff;
-    opacity: 0.9;
-    text-align: center;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 1;
-    letter-spacing: 0.02em;
-    line-height: 1.15;
   }
 
   /* Ticker containers */
@@ -79,12 +57,12 @@
 
   .ss-ticker-top {
     top: 0;
-    height: 48%;
+    height: 77%; /* 48% × 1.6 */
   }
 
   .ss-ticker-bottom {
     bottom: 0;
-    height: 42%;
+    height: 67%; /* 42% × 1.6 */
   }
 
   /* Ticker track — the scrolling <ul> */
@@ -148,23 +126,17 @@
     .ss-root {
       height: 70vh;
     }
-    .ss-bg-text {
-      font-size: 36px;
-    }
     .ss-ticker-top {
-      height: 45%;
+      height: 72%;
     }
     .ss-ticker-bottom {
-      height: 40%;
+      height: 64%;
     }
   }
 
   @media (max-width: 480px) {
     .ss-root {
       height: 50vh;
-    }
-    .ss-bg-text {
-      font-size: 24px;
     }
   }
 </style>
