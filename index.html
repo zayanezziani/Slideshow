@@ -1,34 +1,22 @@
-<!-- Dual Ticker Strips — Squarespace Code Block -->
-<!-- Paste this entire snippet into a Squarespace Code Block (HTML mode) -->
-
-<!-- ============================================= -->
-<!-- CUSTOMIZATION: Swap image URLs in src below   -->
-<!-- STRIP_01 = top strip (scrolls left)           -->
-<!-- STRIP_02 = middle strip (scrolls left)        -->
-<!-- STRIP_03 = bottom strip (scrolls left)        -->
-<!-- ============================================= -->
+<!-- Strip 01 image URL ↓ -->
+<!-- Strip 02 image URL ↓ -->
+<!-- Strip 03 image URL ↓ -->
 
 <div class="ss-root">
-
-  <!-- Strip 01 — scrolls left -->
   <div class="ss-ticker ss-ticker-top">
-    <ul class="ss-ticker-track ss-ticker-left">
+    <ul class="ss-ticker-track ss-scroll">
       <li><img src="https://framerusercontent.com/images/iVS1s6ssJunuCyZWMXFRF2cvOcw.png?lossless=1&width=17220&height=630" alt=""></li>
       <li><img src="https://framerusercontent.com/images/iVS1s6ssJunuCyZWMXFRF2cvOcw.png?lossless=1&width=17220&height=630" alt=""></li>
     </ul>
   </div>
-
-  <!-- Strip 02 — scrolls left (slower) -->
   <div class="ss-ticker ss-ticker-middle">
-    <ul class="ss-ticker-track ss-ticker-left">
+    <ul class="ss-ticker-track ss-scroll">
       <li><img src="https://framerusercontent.com/images/16D2ALuD0kwp5nH7tdR4PjuO7rw.png?scale-down-to=4096&width=4620&height=630" alt=""></li>
       <li><img src="https://framerusercontent.com/images/16D2ALuD0kwp5nH7tdR4PjuO7rw.png?scale-down-to=4096&width=4620&height=630" alt=""></li>
     </ul>
   </div>
-
-  <!-- Strip 03 — scrolls left (same speed as strip 01) -->
   <div class="ss-ticker ss-ticker-bottom">
-    <ul class="ss-ticker-track ss-ticker-left">
+    <ul class="ss-ticker-track ss-scroll">
       <li><img src="https://framerusercontent.com/images/fYcDzLebgwFxMPeKeC88IgvX14.png?scale-down-to=4096&width=4809&height=687" alt=""></li>
       <li><img src="https://framerusercontent.com/images/fYcDzLebgwFxMPeKeC88IgvX14.png?scale-down-to=4096&width=4809&height=687" alt=""></li>
     </ul>
@@ -36,54 +24,27 @@
 </div>
 
 <style>
-  /* =============================================
-     CUSTOMIZATION — Edit these values
-     --ss-scroll-duration-top/bottom : speed per strip
-     --ss-ticker-gap      : space between copies
-     ============================================= */
-
   .ss-root {
-    --ss-scroll-duration-top: 116s;
-    --ss-scroll-duration-middle: 70s;
-    --ss-scroll-duration-bottom: 116s;
-    --ss-ticker-gap: 0px;
-
     position: relative;
     width: 100%;
     height: 1560px;
-    background: #000000;
+    background: #000;
     overflow: hidden;
   }
 
-  /* Ticker containers */
   .ss-ticker {
     position: absolute;
     left: 0;
     width: 100%;
     overflow: hidden;
-    z-index: 2;
   }
 
-  .ss-ticker-top {
-    top: 0;
-    height: 520px;
-  }
+  .ss-ticker-top    { top: 0;       height: 520px; }
+  .ss-ticker-middle { top: 520px;   height: 520px; }
+  .ss-ticker-bottom { top: 1040px;  height: 520px; }
 
-  .ss-ticker-middle {
-    top: 520px;
-    height: 520px;
-  }
-
-  .ss-ticker-bottom {
-    top: 1040px;
-    height: 520px;
-  }
-
-  /* Ticker track — the scrolling <ul> */
   .ss-ticker-track {
     display: flex;
-    align-items: stretch;
-    gap: var(--ss-ticker-gap);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -94,7 +55,6 @@
 
   .ss-ticker-track li {
     flex-shrink: 0;
-    min-height: 0;
     display: flex;
   }
 
@@ -102,65 +62,28 @@
     display: block;
     height: 100%;
     width: auto;
-    flex-shrink: 0;
   }
 
-  /* Left-scrolling animation — strip 01 */
-  .ss-ticker-top .ss-ticker-left {
-    animation: ss-scroll-left var(--ss-scroll-duration-top) linear infinite;
+  .ss-ticker-top .ss-scroll    { animation: ss-scroll 116s linear infinite; }
+  .ss-ticker-middle .ss-scroll { animation: ss-scroll 70s linear infinite; }
+  .ss-ticker-bottom .ss-scroll { animation: ss-scroll 116s linear infinite; }
+
+  @keyframes ss-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 
-  /* Left-scrolling animation — strip 02 */
-  .ss-ticker-middle .ss-ticker-left {
-    animation: ss-scroll-left var(--ss-scroll-duration-middle) linear infinite;
-  }
-
-  /* Left-scrolling animation — strip 03 (same speed as strip 01) */
-  .ss-ticker-bottom .ss-ticker-left {
-    animation: ss-scroll-left var(--ss-scroll-duration-bottom) linear infinite;
-  }
-
-  @keyframes ss-scroll-left {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-50% - var(--ss-ticker-gap) / 2));
-    }
-  }
-
-  /* Responsive */
   @media (max-width: 768px) {
-    .ss-root {
-      height: 1050px;
-    }
-    .ss-ticker-top {
-      height: 350px;
-    }
-    .ss-ticker-middle {
-      top: 350px;
-      height: 350px;
-    }
-    .ss-ticker-bottom {
-      top: 700px;
-      height: 350px;
-    }
+    .ss-root          { height: 1050px; }
+    .ss-ticker-top    { height: 350px; }
+    .ss-ticker-middle { top: 350px; height: 350px; }
+    .ss-ticker-bottom { top: 700px; height: 350px; }
   }
 
   @media (max-width: 480px) {
-    .ss-root {
-      height: 750px;
-    }
-    .ss-ticker-top {
-      height: 250px;
-    }
-    .ss-ticker-middle {
-      top: 250px;
-      height: 250px;
-    }
-    .ss-ticker-bottom {
-      top: 500px;
-      height: 250px;
-    }
+    .ss-root          { height: 750px; }
+    .ss-ticker-top    { height: 250px; }
+    .ss-ticker-middle { top: 250px; height: 250px; }
+    .ss-ticker-bottom { top: 500px; height: 250px; }
   }
 </style>
