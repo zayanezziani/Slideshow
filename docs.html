@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Update Your Image Strips</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    header {
+      margin-bottom: 56px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 1px;
+      background: #e5e5e5;
+      margin: 48px 0;
+    }
+
+    .step {
+      margin-bottom: 48px;
+    }
+
+    .step:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.01em;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .step-body {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .step-body strong {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    .placeholder-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #f0f0f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-image span {
+      font-size: 13px;
+      color: #999;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .callout {
+      margin-top: 56px;
+      padding: 20px 24px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+      background: #fff;
+    }
+
+    .callout-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .callout-row + .callout-row {
+      margin-top: 10px;
+    }
+
+    .callout-label-do {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a7f37;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .callout-label-dont {
+      font-size: 12px;
+      font-weight: 600;
+      color: #cf222e;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .callout-text {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>How to Update Your Image Strips</h1>
+      <p class="subtitle">Follow these steps to swap the scrolling strip images on your Squarespace page.</p>
+    </header>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-badge">1</span>
+        <h2 class="step-title">Edit the strips in Figma</h2>
+      </div>
+      <p class="step-body">Open the Figma file and locate the three strip designs (Strip 01, Strip 02, Strip 03). Make your changes directly in Figma.</p>
+      <div class="placeholder-image">
+        <span>Screenshot: Step 1 — Figma</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-badge">2</span>
+        <h2 class="step-title">Export as PNG</h2>
+      </div>
+      <p class="step-body">Select each strip frame, go to <strong>Export</strong> in the right panel, and export each one as PNG at 1x or 2x resolution.</p>
+      <div class="placeholder-image">
+        <span>Screenshot: Step 2 — Export Settings</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-badge">3</span>
+        <h2 class="step-title">Upload to Cloudinary</h2>
+      </div>
+      <p class="step-body">Log in to your Cloudinary account. For each strip, find the existing file, right-click it, and hit <strong>Replace</strong>. Upload the new PNG. The link stays the same — no code changes needed.</p>
+      <div class="placeholder-image">
+        <span>Screenshot: Step 3 — Cloudinary Replace</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-badge">4</span>
+        <h2 class="step-title">Copy the image URL</h2>
+      </div>
+      <p class="step-body">After uploading, right-click the asset and select <strong>Copy URL</strong>. Repeat for each of the three strips.</p>
+      <div class="placeholder-image">
+        <span>Screenshot: Step 4 — Copy URL</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-badge">5</span>
+        <h2 class="step-title">Update the code &amp; paste into Squarespace</h2>
+      </div>
+      <p class="step-body">In the Figma file, go to the Code page. You'll see the embed code with three highlighted URL fields — one per strip. Paste each Cloudinary URL into the matching field. Then copy the entire code block and paste it into the Squarespace embed block, replacing the previous version.</p>
+      <div class="placeholder-image">
+        <span>Screenshot: Step 5 — Squarespace Embed</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-row">
+        <span class="callout-label-do">DO</span>
+        <span class="callout-text">Always use <strong>Replace</strong> in Cloudinary so the URL stays the same.</span>
+      </div>
+      <div class="callout-row">
+        <span class="callout-label-dont">DON'T</span>
+        <span class="callout-text">Never delete and re-upload — this will change the URL and break the embed.</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
