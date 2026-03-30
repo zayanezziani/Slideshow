@@ -3,6 +3,8 @@
 <!-- Strip 03 image URL ↓ -->
 
 <div class="ss-root">
+  <div class="ss-label ss-label-1">Fashion &amp; Jewelry</div>
+  <div class="ss-label ss-label-2">E-commerce &amp; Product</div>
   <div class="ss-ticker ss-ticker-top">
     <ul class="ss-ticker-track ss-scroll">
       <li><img src="https://framerusercontent.com/images/iVS1s6ssJunuCyZWMXFRF2cvOcw.png?lossless=1&width=17220&height=630" alt=""></li>
@@ -24,6 +26,8 @@
 </div>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap');
+
   .ss-root {
     position: relative;
     width: 100%;
@@ -73,11 +77,30 @@
     to   { transform: translateX(-50%); }
   }
 
+  .ss-label {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: clamp(24px, 4vw, 56px);
+    color: #fff;
+    text-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .ss-label-1 { top: 520px; }
+  .ss-label-2 { top: 1040px; }
+
   @media (max-width: 768px) {
     .ss-root          { height: 1050px; }
     .ss-ticker-top    { height: 350px; }
     .ss-ticker-middle { top: 350px; height: 350px; }
     .ss-ticker-bottom { top: 700px; height: 350px; }
+    .ss-label-1 { top: 350px; }
+    .ss-label-2 { top: 700px; }
   }
 
   @media (max-width: 480px) {
@@ -85,5 +108,7 @@
     .ss-ticker-top    { height: 250px; }
     .ss-ticker-middle { top: 250px; height: 250px; }
     .ss-ticker-bottom { top: 500px; height: 250px; }
+    .ss-label-1 { top: 250px; }
+    .ss-label-2 { top: 500px; }
   }
 </style>
